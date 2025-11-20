@@ -1,0 +1,81 @@
+[
+  {
+    "courseId": "C1",
+    "title": "Introduction to Web Development",
+    "description": "Foundational course for HTML, CSS, and basic JavaScript.",
+    "instructorId": "U1001",
+    "lessons": [
+      {
+        "lessonId": "L1",
+        "title": "HTML Basicsff",
+        "content": "This is the content for L1."
+      },
+      {
+        "lessonId": "L2",
+        "title": "CSS Styling",
+        "content": "This is the content for L2."
+      }
+    ],
+    "students": [
+      "U2001"
+    ]
+  },
+  {
+    "courseId": "C2",
+    "title": "Advanced Data Structures",
+    "description": "Deep dive into graphs, trees, and algorithm efficiency.",
+    "instructorId": "U1001",
+    "lessons": [
+      {
+        "lessonId": "L3",
+        "title": "Graph Traversal",
+        "content": "Lesson content for graphs."
+      },
+      {
+        "lessonId": "L4",
+        "title": "Balanced Trees",
+        "content": "Lesson content for trees."
+      }
+    ],
+    "students": [
+      "U2001"
+    ]
+  },
+  {
+    "courseId": "C3",
+    "title": "Database Management with SQL",
+    "description": "Practical SQL for developers.",
+    "instructorId": "U1001",
+    "lessons": [
+      {
+        "lessonId": "ksk",
+        "title": ",skkkd",
+        "content": "kkd",
+        "resources": []
+      }
+    ],
+    "students": [
+      "U2002"
+    ]
+  },
+  {
+    "courseId": "P101",
+    "title": "Introduction to Philosophy",
+    "description": "A survey of major philosophical movements.",
+    "instructorId": "U8403",
+    "lessons": [],
+    "students": [
+      "U1501"
+    ]
+  },
+  {
+    "courseId": "D202",
+    "title": "Digital Art Fundamentals",
+    "description": "Drawing and painting techniques for digital media.",
+    "instructorId": "U9568",
+    "lessons": [],
+    "students": [
+      "U8918"
+    ]
+  }
+]

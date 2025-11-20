@@ -1,0 +1,98 @@
+[
+  {
+    "createdCourses": [
+      "C1",
+      "C2",
+      "C3"
+    ],
+    "userId": "U1001",
+    "username": "instructor1",
+    "email": "inst@test.com",
+    "passwordHash": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+    "role": "instructor"
+  },
+  {
+    "enrolledCourses": [
+      "C1",
+      "C2"
+    ],
+    "progress": {
+      "C1": [
+        "L1"
+      ],
+      "C2": []
+    },
+    "userId": "U2001",
+    "username": "student1",
+    "email": "student@test.com",
+    "passwordHash": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+    "role": "student"
+  },
+  {
+    "enrolledCourses": [
+      "C3"
+    ],
+    "progress": {
+      "C3": []
+    },
+    "userId": "U2002",
+    "username": "student2",
+    "email": "student2@test.com",
+    "passwordHash": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+    "role": "student"
+  },
+  {
+    "createdCourses": [
+      "P101"
+    ],
+    "userId": "U8403",
+    "username": "mohamed",
+    "email": "m@m.com",
+    "passwordHash": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+    "role": "instructor"
+  },
+  {
+    "enrolledCourses": [
+      "P101"
+    ],
+    "progress": {
+      "P101": []
+    },
+    "userId": "U1501",
+    "username": "mohameds",
+    "email": "s@s.com",
+    "passwordHash": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+    "role": "student"
+  },
+  {
+    "enrolledCourses": [
+      "D202"
+    ],
+    "progress": {
+      "D202": []
+    },
+    "userId": "U8918",
+    "username": "sara",
+    "email": "sararakha@gmail.com",
+    "passwordHash": "57ed7fac2c3aab372df3a7ca6c3cb2b0fd7550006ef0c20fa3992a3444d2dc65",
+    "role": "student"
+  },
+  {
+    "createdCourses": [
+      "D202"
+    ],
+    "userId": "U9568",
+    "username": "sara hany",
+    "email": "sr@gmail.com",
+    "passwordHash": "ad18d14e74b3997955c2a9129badc23c2c56d7008a0ca0d27366a28cd2911acb",
+    "role": "instructor"
+  },
+  {
+    "createdCourses": [],
+    "userId": "U4463",
+    "username": "hayat",
+    "email": "hayattarek@gmail.com",
+    "passwordHash": "1b905203fccf91d6c10d42bf361e1ac5a712f5f264fd97cbb0c2f93e3a9183ca",
+    "role": "instructor"
+  }
+]
