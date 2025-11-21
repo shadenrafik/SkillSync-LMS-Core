@@ -5,6 +5,7 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 import model.User;
+import model.Admin;
 import model.Course;
 import model.Instructor;
 import model.Student;
@@ -38,6 +39,9 @@ public class JsonDatabaseManager{
                 }else if (role.equalsIgnoreCase("instructor")){
                     Instructor instructor=gson.fromJson(obj,Instructor.class);
                     users.add(instructor);
+                }else if (role.equalsIgnoreCase("admin")){
+                    Admin admin=gson.fromJson(obj,Admin.class);
+                    users.add(admin);
                 }
             }
         }catch (IOException e){

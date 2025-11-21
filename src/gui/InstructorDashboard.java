@@ -17,12 +17,19 @@ public class InstructorDashboard extends JPanel implements ActionListener {
     private CourseManager Manager;
     private User loggedUser;
 
+    private EditCoursesPanel editCoursesPanel ;
+    private ViewEnrolledStudentsPanel viewEnrolledStudentsPanel ;
+    private ManageLessonsPanel manageLessonsPanel ;
+
 
 
     public InstructorDashboard(User loggedUser) {
         this.loggedUser = loggedUser;
         setLayout(new BorderLayout());
         Manager =new CourseManager("src/database/courses.json");
+        editCoursesPanel = new EditCoursesPanel(Manager, loggedUser);
+        viewEnrolledStudentsPanel = new ViewEnrolledStudentsPanel(Manager, loggedUser);
+        manageLessonsPanel = new ManageLessonsPanel(Manager, loggedUser);
         initializeNavBar();
         initContentPanel();
     }
@@ -58,12 +65,14 @@ public class InstructorDashboard extends JPanel implements ActionListener {
     private void initContentPanel() {
         contentLayout = new CardLayout();
         contentPanel = new JPanel(contentLayout);
-        contentPanel.add("Home", new HomePanel());
-        contentPanel.add(new EditCoursesPanel(Manager, loggedUser), "EditCourses");
-        contentPanel.add(new ViewEnrolledStudentsPanel(Manager, loggedUser), "ViewEnrolledStudents");
-        contentPanel.add(new ManageLessonsPanel(Manager, loggedUser), "ManageLessons");
+        contentPanel.add(new HomePanel(), "Home");
+
+        contentPanel.add(editCoursesPanel, "EditCourses");
+        contentPanel.add(viewEnrolledStudentsPanel, "ViewEnrolledStudents");
+        contentPanel.add(manageLessonsPanel, "ManageLessons");
         add(contentPanel, BorderLayout.CENTER);
         contentLayout.show(contentPanel, "Home");
+
     }
 
     private JButton createNavBtn(String text) {
@@ -80,8 +89,10 @@ public class InstructorDashboard extends JPanel implements ActionListener {
         if (source == editCoursesButton) {
             contentLayout.show(contentPanel, "EditCourses");
         } else if (source == viewEnrolledStudentsButton) {
+            viewEnrolledStudentsPanel.refreshCourses();
             contentLayout.show(contentPanel, "ViewEnrolledStudents");
         } else if (source == manageLessonsButton) {
+            manageLessonsPanel.refreshCourses();
             contentLayout.show(contentPanel, "ManageLessons");
         } else if (source == logoutButton) {
 
@@ -101,8 +112,6 @@ public class InstructorDashboard extends JPanel implements ActionListener {
     }
 
     }
-
-
     public void setLogoutAction(ActionListener listener) {
         this.logoutListener = listener;
     }

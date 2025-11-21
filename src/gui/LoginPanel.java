@@ -112,12 +112,16 @@ public class LoginPanel extends JPanel implements ActionListener {
                 parent.getContentPane().removeAll();
             }
 
+            if(role.equalsIgnoreCase("admin")) {
+                parent.add(new AdminDashboard(loggedUser));
+            } else
             if (role.equalsIgnoreCase("instructor")) {
                 parent.add(new InstructorDashboard(loggedUser));
             } else {
                 if (loggedUser instanceof Student) {
                     parent.add(new StudentDashboard(loggedUser));
-                } else {
+                } 
+                else {
                     JOptionPane.showMessageDialog(this, "Student record not available, opening minimal student dashboard.", "Warning", JOptionPane.WARNING_MESSAGE);
                     parent.add(new StudentDashboard(null));
                 }

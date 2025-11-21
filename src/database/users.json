@@ -94,5 +94,12 @@
     "email": "hayattarek@gmail.com",
     "passwordHash": "1b905203fccf91d6c10d42bf361e1ac5a712f5f264fd97cbb0c2f93e3a9183ca",
     "role": "instructor"
+  },
+  {
+    "userId": "U1229",
+    "username": "admin",
+    "email": "a@a.com",
+    "passwordHash": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+    "role": "admin"
   }
 ]

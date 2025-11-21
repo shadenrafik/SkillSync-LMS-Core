@@ -3,9 +3,7 @@ package backend;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
-import model.User;
-import model.Instructor;
-import model.Student;
+import model.*;
 
 public class AuthManager {
     private JsonDatabaseManager dbManager;
@@ -58,7 +56,9 @@ public class AuthManager {
         String userId=dbManager.generateUserId(users);
         String hashedPassword=hashPasswordSHA256(password);
         User newUser;
-        if (role.equalsIgnoreCase("student")){
+        if(role.equalsIgnoreCase("admin")){                 //added for admin role
+            newUser=new Admin(userId,username,email,hashedPassword);    
+        }else if (role.equalsIgnoreCase("student")){
             newUser=new Student(userId,username,email,hashedPassword);
         }else if (role.equalsIgnoreCase("instructor")){
             newUser=new Instructor(userId,username,email,hashedPassword);
@@ -73,11 +73,13 @@ public class AuthManager {
     }
 
     public String login(String email,String password){
+        System.out.println("Attempting login for email: "+email);               //for testing
         email=email.trim().toLowerCase();
         password=password.trim();
         List<User>users=dbManager.loadUsers();
         String hashedInput=hashPasswordSHA256(password);
         for (User u :users){
+            System.out.println("Checking user: "+u.getEmail());                 //for testing
             if (u.getEmail().equalsIgnoreCase(email)){
                 if (u.getPasswordHash().equals(hashedInput)){
                     System.out.println("Login successful! Role: "+u.getRole());

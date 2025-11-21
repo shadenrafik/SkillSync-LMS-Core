@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 public class ViewEnrolledStudentsPanel extends JPanel {
 
+
     private JComboBox<String> courseSelector;
     private JTable table;
     private DefaultTableModel model;
@@ -79,4 +80,10 @@ public class ViewEnrolledStudentsPanel extends JPanel {
             model.addRow(new Object[]{sid});
         }
     }
+
+    //refresh dashboard
+    public void refreshCourses() {
+        loadCoursesIntoSelector();
+    }
+
 }

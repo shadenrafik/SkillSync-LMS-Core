@@ -17,7 +17,8 @@ import java.util.stream.Collectors;
 public class EditCoursesPanel extends JPanel {
     private JTable table;
     private DefaultTableModel model;
-    private JButton btnCreate, btnEdit, btnDelete;
+    public JButton btnCreate;
+    private JButton btnEdit, btnDelete;
     private final User loggedUser;
     private final CourseManager cmanager;
 
@@ -60,7 +61,7 @@ public class EditCoursesPanel extends JPanel {
         }
     }
 
-    private void onCreate() {
+    public void onCreate() {
         JTextField id = new JTextField();
         JTextField title = new JTextField();
         JTextField desc = new JTextField();

@@ -65,7 +65,7 @@ public class SignupPanel extends JPanel implements ActionListener {
         gbc.gridy++; gbc.gridx = 0;
         add(new JLabel("Role:"), gbc);
 
-        String[] roles = {"student", "instructor"};
+        String[] roles = {"student", "instructor","admin"};
         roleComboBox = new JComboBox<>(roles);
         gbc.gridx = 1;
         add(roleComboBox, gbc);

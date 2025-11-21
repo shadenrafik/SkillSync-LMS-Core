@@ -176,4 +176,42 @@ public class CourseManager {
             }
         }
         System.out.println("Lesson not found.");
-    }}
+    }
+
+
+    public List<Course> getPendingCourses() {                   //add to admin role
+        List<Course> pendingCourses = new ArrayList<>();
+        for (Course c : courses) {
+            if ("PENDING".equals(c.getStatus())) {
+                pendingCourses.add(c);
+            }
+        }
+        return pendingCourses;
+    }
+
+    public boolean approveCourse(String courseId) {                   //add to admin role
+        Course course = getCourseById(courseId);
+        if (course != null) {
+            course.setStatus("APPROVED");
+            saveAllCourses();
+            System.out.println("Course approved.");
+            return true;
+        } else {
+            System.out.println("Course not found.");
+            return false;
+        }
+    }
+
+    public boolean rejectCourse(String courseId) {                   //add to admin role
+        Course course = getCourseById(courseId);
+        if (course != null) {
+            course.setStatus("REJECTED");
+            saveAllCourses();
+            System.out.println("Course rejected.");
+            return true;
+        } else {
+            System.out.println("Course not found.");
+            return false;
+        }
+    }
+}

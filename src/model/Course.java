@@ -1,6 +1,8 @@
 package model;
 
 import java.util.ArrayList;
+import model.Lesson;
+import java.util.*;
 
 public class Course {
     private String courseId;
@@ -9,6 +11,8 @@ public class Course {
     private String instructorId; 
     private ArrayList<Lesson> lessons;
     private ArrayList<String> students;
+
+    private String status ;  //PENDING, APPROVED, REJECTED
 
     public Course() {
         this.lessons = new ArrayList<>();
@@ -74,4 +78,13 @@ public class Course {
                 ", students=" + students +
                 '}';
     }
+
+    public String getStatus() {
+        return status;
+    } 
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
 }

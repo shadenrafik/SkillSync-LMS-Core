@@ -63,7 +63,14 @@
     "title": "Introduction to Philosophy",
     "description": "A survey of major philosophical movements.",
     "instructorId": "U8403",
-    "lessons": [],
+    "lessons": [
+      {
+        "lessonId": "lec 1",
+        "title": "test",
+        "content": "",
+        "resources": []
+      }
+    ],
     "students": [
       "U1501"
     ]
@@ -75,7 +82,116 @@
     "instructorId": "U9568",
     "lessons": [],
     "students": [
-      "U8918"
+      "U8918",
+      "U1501"
     ]
+  },
+  {
+    "courseId": "c5",
+    "title": "discrete 2",
+    "description": "discrete math",
+    "instructorId": "U8403",
+    "lessons": [
+      {
+        "lessonId": "L1",
+        "title": "lec 1",
+        "content": "",
+        "resources": []
+      },
+      {
+        "lessonId": "L2",
+        "title": "lec 2",
+        "content": "",
+        "resources": []
+      }
+    ],
+    "students": [
+      "U1501"
+    ]
+  },
+  {
+    "courseId": "test",
+    "title": "test23",
+    "description": "",
+    "instructorId": "U8403",
+    "lessons": [],
+    "students": [
+      "U1501"
+    ]
+  },
+  {
+    "courseId": "test2",
+    "title": "test33",
+    "description": "",
+    "instructorId": "U8403",
+    "lessons": [],
+    "students": []
+  },
+  {
+    "courseId": "C4",
+    "title": "Machine Learning Basics",
+    "description": "Introduction to machine learning concepts and algorithms.",
+    "instructorId": "U1002",
+    "lessons": [
+      {
+        "lessonId": "L1",
+        "title": "Supervised Learning",
+        "content": "This is the content for L1."
+      },
+      {
+        "lessonId": "L2",
+        "title": "Unsupervised Learning",
+        "content": "This is the content for L2."
+      }
+    ],
+    "students": [
+      "U2002",
+      "U2003"
+    ],
+    "status": "APPROVED"
+  },
+  {
+    "courseId": "C5",
+    "title": "Cloud Computing Fundamentals",
+    "description": "Basics of cloud services and architecture.",
+    "instructorId": "U1002",
+    "lessons": [
+      {
+        "lessonId": "L1",
+        "title": "Cloud Service Models",
+        "content": "This is the content for L1."
+      },
+      {
+        "lessonId": "L2",
+        "title": "Cloud Deployment Models",
+        "content": "This is the content for L2."
+      }
+    ],
+    "students": [
+      "U1501"
+    ],
+    "status": "PENDING"
+  },
+  {
+    "courseId": "C6",
+    "title": "Cybersecurity Essentials",
+    "description": "Fundamental concepts of cybersecurity and best practices.",
+    "instructorId": "U1003",
+    "lessons": [
+      {
+        "lessonId": "L1",
+        "title": "Introduction to Cybersecurity",
+        "content": "This is the content for L1."
+      },
+      {
+        "lessonId": "L2",
+        "title": "Common Threats and Vulnerabilities",
+        "content": "This is the content for L2."
+      }
+    ],
+    "students": [
+      "U1501"
+    ],
+    "status": "REJECTED"
   }
 ]

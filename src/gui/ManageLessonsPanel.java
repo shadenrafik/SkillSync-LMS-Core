@@ -15,6 +15,7 @@ import gui.Validation;
 
 public class ManageLessonsPanel extends JPanel {
 
+
     private JComboBox<String> courseSelector;
     private JTable table;
     private DefaultTableModel model;
@@ -195,5 +196,10 @@ public class ManageLessonsPanel extends JPanel {
 
        manager.deleteLesson(courseId, lid);
         loadLessons();
+    }
+
+    //refresh dashboard
+    public void refreshCourses() {
+        loadCoursesIntoSelector();
     }
 }
