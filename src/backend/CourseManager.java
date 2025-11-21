@@ -51,17 +51,25 @@ public class CourseManager {
             courses.add(course);
             saveAllCourses();
             System.out.println("Course added.");
+
+            jsonDB.updateInstructorCourseList(course.getInstructorId(), course.getCourseId(), "add");
         } else {
             System.out.println("Course already exists.");
         }
     }
+    // In CourseManager.java
+
     public void deleteCourse(String id) {
         Iterator<Course> it =courses.iterator();
         while (it.hasNext()) {
             Course c = it.next();
             if (c.getCourseId().equals(id)) {
+                String instructorId = c.getInstructorId();
                 it.remove();
                 saveAllCourses();
+
+                jsonDB.updateInstructorCourseList(instructorId, id, "remove");
+
                 System.out.println("Course deleted.");
                 return;
             }
@@ -82,7 +90,8 @@ public class CourseManager {
             System.out.println("Course not found.");
 
         }}
-        public void enrollStudent(String studentId, String courseId) {
+
+    public void enrollStudent(String studentId, String courseId) {
         Course course = getCourseById(courseId);
         if (course != null) {
             ArrayList<String> students = course.getStudents();
@@ -90,13 +99,13 @@ public class CourseManager {
             if (!students.contains(studentId)) {
                 students.add(studentId);
                 saveAllCourses();
+                jsonDB.updateStudentEnrollment(studentId, courseId, "enroll");
                 System.out.println("Student enrolled.");
             } else {
                 System.out.println("Student already enrolled.");
             }
         }
     }
-
 
         public void removeStudent(String studentId, String courseId) {
         Course course = getCourseById(courseId);

@@ -109,5 +109,37 @@ public class JsonDatabaseManager{
         }
     }
 
+    // In JsonDatabaseManager.java
+
+    public void updateInstructorCourseList(String instructorId, String courseId, String action) {
+        List<User> users = loadUsers();
+        for (User u : users) {
+            if (u.getUserId().equals(instructorId) && u instanceof Instructor instructor) {
+                if ("add".equalsIgnoreCase(action)) {
+                    instructor.addCreatedCourse(courseId);
+                } else if ("remove".equalsIgnoreCase(action)) {
+                    instructor.getCreatedCourses().remove(courseId);
+                }
+                saveUsers(users);
+                return;
+            }
+        }
+    }
+
+    // In JsonDatabaseManager.java
+
+    public void updateStudentEnrollment(String studentId, String courseId, String action) {
+        List<User> users = loadUsers();
+        for (User u : users) {
+            if (u.getUserId().equals(studentId) && u instanceof Student student) {
+                if ("enroll".equalsIgnoreCase(action)) {
+                    student.enrollInCourse(courseId);
+                }
+                saveUsers(users);
+                return;
+            }
+        }
+    }
 }
+
 

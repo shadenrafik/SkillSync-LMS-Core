@@ -8,12 +8,14 @@
       {
         "lessonId": "L1",
         "title": "HTML Basicsff",
-        "content": "This is the content for L1."
+        "content": "This is the content for L1.",
+        "resources": []
       },
       {
         "lessonId": "L2",
         "title": "CSS Styling",
-        "content": "This is the content for L2."
+        "content": "This is the content for L2.",
+        "resources": []
       }
     ],
     "students": [
@@ -29,12 +31,14 @@
       {
         "lessonId": "L3",
         "title": "Graph Traversal",
-        "content": "Lesson content for graphs."
+        "content": "Lesson content for graphs.",
+        "resources": []
       },
       {
         "lessonId": "L4",
         "title": "Balanced Trees",
-        "content": "Lesson content for trees."
+        "content": "Lesson content for trees.",
+        "resources": []
       }
     ],
     "students": [
@@ -136,12 +140,14 @@
       {
         "lessonId": "L1",
         "title": "Supervised Learning",
-        "content": "This is the content for L1."
+        "content": "This is the content for L1.",
+        "resources": []
       },
       {
         "lessonId": "L2",
         "title": "Unsupervised Learning",
-        "content": "This is the content for L2."
+        "content": "This is the content for L2.",
+        "resources": []
       }
     ],
     "students": [
@@ -159,12 +165,14 @@
       {
         "lessonId": "L1",
         "title": "Cloud Service Models",
-        "content": "This is the content for L1."
+        "content": "This is the content for L1.",
+        "resources": []
       },
       {
         "lessonId": "L2",
         "title": "Cloud Deployment Models",
-        "content": "This is the content for L2."
+        "content": "This is the content for L2.",
+        "resources": []
       }
     ],
     "students": [
@@ -181,12 +189,14 @@
       {
         "lessonId": "L1",
         "title": "Introduction to Cybersecurity",
-        "content": "This is the content for L1."
+        "content": "This is the content for L1.",
+        "resources": []
       },
       {
         "lessonId": "L2",
         "title": "Common Threats and Vulnerabilities",
-        "content": "This is the content for L2."
+        "content": "This is the content for L2.",
+        "resources": []
       }
     ],
     "students": [
