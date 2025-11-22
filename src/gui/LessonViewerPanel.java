@@ -33,6 +33,7 @@ public class LessonViewerPanel extends JPanel implements ListSelectionListener, 
     private Map<Question, Integer> currentQuizAnswers;
     private Quiz currentQuiz;
     private Lesson currentLesson;
+    private int currentAttemptNumber = 0;
 
     public LessonViewerPanel(StudentDashboard parent) {
         this.parentDashboard = parent;
@@ -124,7 +125,18 @@ public class LessonViewerPanel extends JPanel implements ListSelectionListener, 
         if (!e.getValueIsAdjusting()) {
             Lesson selectedLesson = lessonList.getSelectedValue();
             currentLesson = selectedLesson;
-
+            if (selectedLesson == null) {
+                currentAttemptNumber = 0;
+                lessonContentArea.setText("Select a lesson to view its content.");
+                mainActionButton.setText("Select a Lesson");
+                mainActionButton.setEnabled(false);
+                return;
+            }
+            currentAttemptNumber = 0;if (currentStudent.getQuizAttempts().containsKey(currentCourse.getCourseId())) {
+                StudentQuizAttempt lastAttempt = currentStudent.getQuizAttempts().get(currentCourse.getCourseId()).get(selectedLesson.getLessonId());
+                if (lastAttempt != null) {
+                    currentAttemptNumber = lastAttempt.getAttemptCount();
+                }}
             if (selectedLesson != null) {
                 int selectedIndex = lessonListModel.indexOf(selectedLesson);
                 if (selectedIndex > 0) {
@@ -146,7 +158,12 @@ public class LessonViewerPanel extends JPanel implements ListSelectionListener, 
                     if (currentStudent.hasPassedQuiz(currentCourse.getCourseId(), selectedLesson.getLessonId())) {
                         mainActionButton.setText("Quiz Passed!");
                         mainActionButton.setEnabled(false);
-                    } else {
+                    } else if (currentAttemptNumber >= quiz.getMaxAttempts()) {
+                        mainActionButton.setText("Failed - Max Attempts Reached (" + quiz.getMaxAttempts() + ")");
+                        mainActionButton.setEnabled(false);
+                    }else {
+                        int attemptsRemaining = quiz.getMaxAttempts() - currentAttemptNumber;
+                        String attemptsInfo = " (Attempts Remaining: " + attemptsRemaining + " of " + quiz.getMaxAttempts() + ")";
                         mainActionButton.setText("Start Quiz for " + quiz.getPassScore() + "%");
                         mainActionButton.setActionCommand("StartQuiz");
                         mainActionButton.setEnabled(true);
@@ -252,14 +269,14 @@ public class LessonViewerPanel extends JPanel implements ListSelectionListener, 
                 feedback.append("\n\tCorrect Answer: ").append(correctText);
             }
         }
-
+        int newAttemptNumber = currentAttemptNumber + 1;
         int scorePercentage = (int) ((double) correctCount / totalQuestions * 100);
         boolean passed = scorePercentage >= quiz.getPassScore();
 
         StudentQuizAttempt attempt = new StudentQuizAttempt(
                 scorePercentage,
-                passed);
-
+                passed,newAttemptNumber);
+        currentAttemptNumber = newAttemptNumber;
         courseManager.recordLessonQuizResult(
                 currentStudent.getUserId(),
                 currentCourse.getCourseId(),
@@ -280,19 +297,50 @@ public class LessonViewerPanel extends JPanel implements ListSelectionListener, 
         updateProgress();
 
         String message = "Quiz Submitted!Score: " + correctCount + " / " + totalQuestions + " (" + scorePercentage + "%)\n";
-        message += passed ? "Status: PASSED! (Target: " + quiz.getPassScore() + "%)" : "Status: FAILED. (Target: " + quiz.getPassScore() + "%)";
-        if (!passed && feedback.length() > 0) {
-            message += "\n\n--- Feedback ---" + feedback.toString();
-        }
-
-        JOptionPane.showMessageDialog(this, message, "Quiz Results", passed ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
-
-
-        mainActionButton.setEnabled(passed ? false : true);
         if (passed) {
+            message += "Status: PASSED! (Target: " + quiz.getPassScore() + "%)";
+            JOptionPane.showMessageDialog(this, message, "Quiz Results", JOptionPane.INFORMATION_MESSAGE);
+
+            mainActionButton.setEnabled(false);
             mainActionButton.setText("Quiz Passed!");
-        }
-    }
+
+            CompletionManager completionManager=new CompletionManager(new JsonDatabaseManager());
+            boolean CourseComplete= completionManager.markLessonCompleted(
+                    currentStudent,
+                    currentCourse,
+                    currentLesson.getLessonId(),
+                    true
+            );
+
+            if(CourseComplete) {
+                parentDashboard.getCertificatePanel().setStudent(currentStudent);
+                parentDashboard.getCertificatePanel().reloadCertificates();
+            }
+        } else {
+            message += "Status: FAILED. (Target: " + quiz.getPassScore() + "%)";
+            if (feedback.length() > 0) {
+                message += "\n\n--- Feedback ---" + feedback.toString();
+            }
+
+            int maxAttempts = quiz.getMaxAttempts();
+
+            if (newAttemptNumber < maxAttempts) {
+                int attemptsRemaining = maxAttempts - newAttemptNumber;
+                message += "\n\nYou have " + attemptsRemaining + " attempts remaining.";
+
+                mainActionButton.setText("Start Quiz for " + quiz.getPassScore() + "% (Attempts Left: " + attemptsRemaining + ")");
+                mainActionButton.setActionCommand("StartQuiz");
+                mainActionButton.setEnabled(true);
+
+            } else {
+                message += "\n\nMaximum attempts reached (" + maxAttempts + "). You cannot try again.";
+
+                mainActionButton.setText("Failed - Max Attempts Reached");
+                mainActionButton.setEnabled(false);
+            }
+
+            JOptionPane.showMessageDialog(this, message, "Quiz Results", JOptionPane.ERROR_MESSAGE);
+        }}
 
 
     private void updateProgress() {

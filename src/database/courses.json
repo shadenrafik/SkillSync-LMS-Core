@@ -7,7 +7,7 @@
     "lessons": [
       {
         "lessonId": "L1",
-        "title": "HTML Basicsff",
+        "title": "HTML Basics",
         "content": "This is the content for L1.",
         "resources": [],
         "quiz": {
@@ -60,8 +60,7 @@
       }
     ],
     "students": [
-      "U2001",
-      "U2002"
+      "U2001"
     ]
   },
   {
@@ -74,13 +73,45 @@
         "lessonId": "L3",
         "title": "Graph Traversal",
         "content": "Lesson content for graphs.",
-        "resources": []
+        "resources": [],
+        "quiz": {
+          "questions": [
+            {
+              "id": "Q4",
+              "question": "Which algorithm is used to find the shortest path in a graph?",
+              "answers": [
+                "Breadth-First Search (BFS)",
+                "Dijkstra\u0027s Algorithm",
+                "Depth-First Search (DFS)"
+              ],
+              "correctAnswer": 1
+            }
+          ],
+          "passScore": 75,
+          "maxAttempts": 2
+        }
       },
       {
         "lessonId": "L4",
         "title": "Balanced Trees",
         "content": "Lesson content for trees.",
-        "resources": []
+        "resources": [],
+        "quiz": {
+          "questions": [
+            {
+              "id": "Q5",
+              "question": "What is the primary benefit of an AVL tree over a standard Binary Search Tree?",
+              "answers": [
+                "Simpler implementation",
+                "Guaranteed O(log n) time complexity for search, insertion, and deletion",
+                "Less memory overhead"
+              ],
+              "correctAnswer": 1
+            }
+          ],
+          "passScore": 80,
+          "maxAttempts": 2
+        }
       }
     ],
     "students": [
@@ -97,12 +128,26 @@
         "lessonId": "ksk",
         "title": ",skkkd",
         "content": "kkd",
-        "resources": []
+        "resources": [],
+        "quiz": {
+          "questions": [
+            {
+              "id": "Q6",
+              "question": "Which SQL command is used to retrieve data from a database?",
+              "answers": [
+                "UPDATE",
+                "INSERT",
+                "SELECT"
+              ],
+              "correctAnswer": 2
+            }
+          ],
+          "passScore": 60,
+          "maxAttempts": 3
+        }
       }
     ],
-    "students": [
-      "U2002"
-    ]
+    "students": []
   },
   {
     "courseId": "P101",
@@ -114,23 +159,57 @@
         "lessonId": "lec 1",
         "title": "test",
         "content": "",
-        "resources": []
+        "resources": [],
+        "quiz": {
+          "questions": [
+            {
+              "id": "Q7",
+              "question": "Socrates is famous for which philosophical method?",
+              "answers": [
+                "Deductive Reasoning",
+                "The Socratic Method (Elenchus)",
+                "Logical Positivism"
+              ],
+              "correctAnswer": 1
+            }
+          ],
+          "passScore": 70,
+          "maxAttempts": 3
+        }
       }
     ],
-    "students": [
-      "U1501"
-    ]
+    "students": []
   },
   {
     "courseId": "D202",
     "title": "Digital Art Fundamentals",
     "description": "Drawing and painting techniques for digital media.",
     "instructorId": "U9568",
-    "lessons": [],
-    "students": [
-      "U8918",
-      "U1501"
-    ]
+    "lessons": [
+      {
+        "lessonId": "D202-L1",
+        "title": "Understanding Color Theory",
+        "content": "Lesson content on RGB and CMYK.",
+        "resources": [],
+        "quiz": {
+          "questions": [
+            {
+              "id": "Q8",
+              "question": "What are the primary colors in the RGB model?",
+              "answers": [
+                "Red, Green, Blue",
+                "Red, Yellow, Blue",
+                "Cyan, Magenta, Yellow"
+              ],
+              "correctAnswer": 1
+            }
+          ],
+          "passScore": 60,
+          "maxAttempts": 3
+        }
+      }
+    ],
+    "students": []
   },
   {
     "courseId": "c5",
@@ -181,27 +260,66 @@
         }
       }
     ],
-    "students": [
-      "U1501",
-      "U2001"
-    ]
+    "students": []
   },
   {
     "courseId": "test",
     "title": "test23",
     "description": "",
     "instructorId": "U8403",
-    "lessons": [],
-    "students": [
-      "U1501"
-    ]
+    "lessons": [
+      {
+        "lessonId": "T23-L1",
+        "title": "Test Lesson 1",
+        "content": "Content for testing course.",
+        "resources": [],
+        "quiz": {
+          "questions": [
+            {
+              "id": "Q9",
+              "question": "This is a test question.",
+              "answers": [
+                "Option A",
+                "Option B"
+              ],
+              "correctAnswer": 0
+            }
+          ],
+          "passScore": 50,
+          "maxAttempts": 5
+        }
+      }
+    ],
+    "students": []
   },
   {
     "courseId": "test2",
     "title": "test33",
     "description": "",
     "instructorId": "U8403",
-    "lessons": [],
+    "lessons": [
+      {
+        "lessonId": "T33-L1",
+        "title": "Test Lesson Two",
+        "content": "More testing content.",
+        "resources": [],
+        "quiz": {
+          "questions": [
+            {
+              "id": "Q10",
+              "question": "Final test question.",
+              "answers": [
+                "Yes",
+                "No"
+              ],
+              "correctAnswer": 0
+            }
+          ],
+          "passScore": 50,
+          "maxAttempts": 5
+        }
+      }
+    ],
     "students": []
   },
   {
@@ -214,19 +332,48 @@
         "lessonId": "L1",
         "title": "Supervised Learning",
         "content": "This is the content for L1.",
-        "resources": []
+        "resources": [],
+        "quiz": {
+          "questions": [
+            {
+              "id": "Q11",
+              "question": "In Supervised Learning, the training data includes:",
+              "answers": [
+                "Input features only",
+                "Input features and labeled outputs",
+                "Output labels only"
+              ],
+              "correctAnswer": 1
+            }
+          ],
+          "passScore": 70,
+          "maxAttempts": 3
+        }
       },
       {
         "lessonId": "L2",
         "title": "Unsupervised Learning",
         "content": "This is the content for L2.",
-        "resources": []
+        "resources": [],
+        "quiz": {
+          "questions": [
+            {
+              "id": "Q12",
+              "question": "Clustering is a common technique in:",
+              "answers": [
+                "Supervised Learning",
+                "Reinforcement Learning",
+                "Unsupervised Learning"
+              ],
+              "correctAnswer": 2
+            }
+          ],
+          "passScore": 70,
+          "maxAttempts": 3
+        }
       }
     ],
-    "students": [
-      "U2002",
-      "U2003"
-    ],
+    "students": [],
     "status": "APPROVED"
   },
   {
@@ -239,18 +386,48 @@
         "lessonId": "L1",
         "title": "Cloud Service Models",
         "content": "This is the content for L1.",
-        "resources": []
+        "resources": [],
+        "quiz": {
+          "questions": [
+            {
+              "id": "Q13",
+              "question": "Which service model gives users the most control over the environment?",
+              "answers": [
+                "Platform as a Service (PaaS)",
+                "Software as a Service (SaaS)",
+                "Infrastructure as a Service (IaaS)"
+              ],
+              "correctAnswer": 2
+            }
+          ],
+          "passScore": 60,
+          "maxAttempts": 3
+        }
       },
       {
         "lessonId": "L2",
         "title": "Cloud Deployment Models",
         "content": "This is the content for L2.",
-        "resources": []
+        "resources": [],
+        "quiz": {
+          "questions": [
+            {
+              "id": "Q14",
+              "question": "A cloud maintained by a single organization for its exclusive use is called a:",
+              "answers": [
+                "Public Cloud",
+                "Hybrid Cloud",
+                "Private Cloud"
+              ],
+              "correctAnswer": 2
+            }
+          ],
+          "passScore": 60,
+          "maxAttempts": 3
+        }
       }
     ],
-    "students": [
-      "U1501"
-    ],
+    "students": [],
     "status": "PENDING"
   },
   {
@@ -263,18 +440,48 @@
         "lessonId": "L1",
         "title": "Introduction to Cybersecurity",
         "content": "This is the content for L1.",
-        "resources": []
+        "resources": [],
+        "quiz": {
+          "questions": [
+            {
+              "id": "Q15",
+              "question": "What is the primary goal of Confidentiality in the CIA triad?",
+              "answers": [
+                "Preventing unauthorized disclosure of information",
+                "Ensuring information accuracy",
+                "Guaranteeing access to information"
+              ],
+              "correctAnswer": 0
+            }
+          ],
+          "passScore": 75,
+          "maxAttempts": 2
+        }
       },
       {
         "lessonId": "L2",
         "title": "Common Threats and Vulnerabilities",
         "content": "This is the content for L2.",
-        "resources": []
+        "resources": [],
+        "quiz": {
+          "questions": [
+            {
+              "id": "Q16",
+              "question": "Phishing is an example of what type of cyber threat?",
+              "answers": [
+                "Technical Attack",
+                "Physical Attack",
+                "Social Engineering Attack"
+              ],
+              "correctAnswer": 2
+            }
+          ],
+          "passScore": 75,
+          "maxAttempts": 2
+        }
       }
     ],
-    "students": [
-      "U1501"
-    ],
+    "students": [],
     "status": "REJECTED"
   }
 ]

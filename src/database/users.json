@@ -14,42 +14,46 @@
   {
     "enrolledCourses": [
       "C1",
-      "C2",
-      "c5"
+      "C2"
     ],
     "progress": {
-      "C1": [
-        "L1",
-        "L2"
-      ],
-      "C2": [],
-      "c5": [
-        "L1",
-        "L2"
+      "C1": [],
+      "C2": [
+        "L3",
+        "L4"
       ]
     },
     "quizAttempts": {
       "C1": {
         "L1": {
-          "score": 60.0,
-          "passed": true
-        },
-        "L2": {
-          "score": 70.0,
-          "passed": true
+          "score": 0.0,
+          "passed": false,
+          "attemptCount": 3
         }
       },
-      "c5": {
-        "L1": {
+      "C2": {
+        "L3": {
           "score": 100.0,
-          "passed": true
+          "passed": true,
+          "attemptCount": 2
         },
-        "L2": {
+        "L4": {
           "score": 100.0,
-          "passed": true
+          "passed": true,
+          "attemptCount": 1
         }
       }
     },
+    "completedCourses": [
+      "C2"
+    ],
+    "certificates": [
+      {
+        "certificateId": "CERT1763852613278",
+        "courseId": "C2",
+        "issueDate": "2025-11-23"
+      }
+    ],
     "userId": "U2001",
     "username": "student1",
     "email": "student@test.com",
@@ -57,30 +61,11 @@
     "role": "student"
   },
   {
-    "enrolledCourses": [
-      "C3",
-      "C4",
-      "C1"
-    ],
-    "progress": {
-      "C3": [],
-      "C4": [],
-      "C1": [
-        "L2"
-      ]
-    },
-    "quizAttempts": {
-      "C1": {
-        "L1": {
-          "score": 10.0,
-          "passed": false
-        },
-        "L2": {
-          "score": 90.0,
-          "passed": true
-        }
-      }
-    },
+    "enrolledCourses": [],
+    "progress": {},
+    "quizAttempts": {},
+    "completedCourses": [],
+    "certificates": [],
     "userId": "U2002",
     "username": "student2",
     "email": "student2@test.com",
@@ -101,37 +86,11 @@
     "role": "instructor"
   },
   {
-    "enrolledCourses": [
-      "P101",
-      "D202",
-      "c5",
-      "test",
-      "C5",
-      "C6"
-    ],
-    "progress": {
-      "P101": [],
-      "D202": [],
-      "c5": [
-        "L1",
-        "L2"
-      ],
-      "test": [],
-      "C5": [],
-      "C6": []
-    },
-    "quizAttempts": {
-      "c5": {
-        "L1": {
-          "score": 100.0,
-          "passed": true
-        },
-        "L2": {
-          "score": 80.0,
-          "passed": true
-        }
-      }
-    },
+    "enrolledCourses": [],
+    "progress": {},
+    "quizAttempts": {},
+    "completedCourses": [],
+    "certificates": [],
     "userId": "U1501",
     "username": "mohameds",
     "email": "s@s.com",
@@ -139,13 +98,11 @@
     "role": "student"
   },
   {
-    "enrolledCourses": [
-      "D202"
-    ],
-    "progress": {
-      "D202": []
-    },
+    "enrolledCourses": [],
+    "progress": {},
     "quizAttempts": {},
+    "completedCourses": [],
+    "certificates": [],
     "userId": "U8918",
     "username": "sara",
     "email": "sararakha@gmail.com",
@@ -184,13 +141,11 @@
     "role": "instructor"
   },
   {
-    "enrolledCourses": [
-      "C4"
-    ],
-    "progress": {
-      "C4": []
-    },
+    "enrolledCourses": [],
+    "progress": {},
     "quizAttempts": {},
+    "completedCourses": [],
+    "certificates": [],
     "userId": "U2003",
     "username": "student3",
     "email": "student3@test.com",

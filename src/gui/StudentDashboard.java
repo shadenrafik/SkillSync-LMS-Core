@@ -15,6 +15,8 @@ public class StudentDashboard extends JPanel implements ActionListener {
     private JPanel contentPanel;
     private Student currentStudent;
     private final JsonDatabaseManager dbManager;
+    private CertificatePanel certificatePanel;
+    private JButton certificateButton;
 
     private ActionListener logoutListener;
     private HomePanel homePanel;
@@ -52,15 +54,17 @@ public class StudentDashboard extends JPanel implements ActionListener {
         viewAvailableCoursesButton = createNavBtn("View Available Courses");
         enrolledCoursesButton = createNavBtn("View Enrolled Courses");
         logoutButton = createNavBtn("Logout");
+        certificateButton = createNavBtn("My Certificates");
 
 
 
         navBar.add(viewAvailableCoursesButton);
         navBar.add(enrolledCoursesButton);
+        navBar.add(certificateButton);
         navBar.add(logoutButton);
 
         JButton[] buttons = {
-                viewAvailableCoursesButton, enrolledCoursesButton, logoutButton,homeButton};
+                viewAvailableCoursesButton, enrolledCoursesButton,certificateButton, logoutButton,homeButton};
         for (JButton btn : buttons) {
             btn.addActionListener(this);
         }
@@ -76,6 +80,8 @@ public class StudentDashboard extends JPanel implements ActionListener {
         availableCoursesPanel = new AvailableCoursesPanel(this,currentStudent);
         enrolledCoursesPanel = new EnrolledCoursesPanel(this, currentStudent);
         lessonViewerPanel = new LessonViewerPanel(this);
+        certificatePanel=new CertificatePanel(getFreshStudentData());
+        contentPanel.add(certificatePanel, "Certificates");
         contentPanel.add(homePanel, "Home");
         contentPanel.add(availableCoursesPanel, "ViewAvailableCourses");
         contentPanel.add(enrolledCoursesPanel, "ViewEnrolledCourses");
@@ -116,7 +122,11 @@ public class StudentDashboard extends JPanel implements ActionListener {
         } else if (source == homeButton) {
             contentLayout.show(contentPanel, "Home");}
         else if (source == enrolledCoursesButton) {
-            contentLayout.show(contentPanel, "ViewEnrolledCourses");
+            contentLayout.show(contentPanel, "ViewEnrolledCourses");}
+            else if (source == certificateButton) {
+                certificatePanel.reloadCertificates();
+                contentLayout.show(contentPanel, "Certificates");
+
         } else if (source == logoutButton) {
 
             if (logoutListener != null) {
@@ -139,5 +149,7 @@ public class StudentDashboard extends JPanel implements ActionListener {
     public void setLogoutAction(ActionListener listener) {
         this.logoutListener = listener;
     }
-
+public CertificatePanel getCertificatePanel() {
+        return certificatePanel;
+}
 }

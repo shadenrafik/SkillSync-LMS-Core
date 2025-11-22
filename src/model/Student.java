@@ -9,12 +9,15 @@ public class Student extends User{
     private List<String>enrolledCourses;
     private Map<String,List<String>>progress;
     private Map<String, Map<String, StudentQuizAttempt>> quizAttempts;
-
+private List<String > completedCourses;
+private List<Certificate>certificates;
     public Student(){
         super("","","","","student");
         this.enrolledCourses=new ArrayList<>();
         this.progress=new HashMap<>();
         this.quizAttempts=new HashMap<>();
+        this.completedCourses=new ArrayList<>();
+        this.certificates=new ArrayList<>();
     }
     public Student(String userId,String username,String email,String passwordHash){
         super(userId,username,email,passwordHash,"student");
@@ -58,6 +61,22 @@ public class Student extends User{
 
     public void setQuizAttempts(Map<String, Map<String, StudentQuizAttempt>> quizAttempts) {
         this.quizAttempts = quizAttempts;
+    }
+
+    public List<String> getCompletedCourses() {
+        return completedCourses;
+    }
+
+    public void setCompletedCourses(List<String> completedCourses) {
+        this.completedCourses = completedCourses;
+    }
+
+    public List<Certificate> getCertificates() {
+        return certificates;
+    }
+
+    public void setCertificates(List<Certificate> certificates) {
+        this.certificates = certificates;
     }
 
     @Override
