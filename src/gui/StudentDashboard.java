@@ -4,6 +4,9 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
 import model.*;
+import backend.*;
+import java.util.*;
+import java.util.List;
 
 public class StudentDashboard extends JPanel implements ActionListener {
 
@@ -11,6 +14,7 @@ public class StudentDashboard extends JPanel implements ActionListener {
     private CardLayout contentLayout;
     private JPanel contentPanel;
     private Student currentStudent;
+    private final JsonDatabaseManager dbManager;
 
     private ActionListener logoutListener;
     private HomePanel homePanel;
@@ -20,11 +24,21 @@ public class StudentDashboard extends JPanel implements ActionListener {
 
     public StudentDashboard(User user) {
         this.currentStudent = (Student) user;
+        this.dbManager = new JsonDatabaseManager();
         setLayout(new BorderLayout());
         initializeNavBar();
         initContentPanel();
     }
-
+    public Student getFreshStudentData() {
+        List<User> allUsers = dbManager.loadUsers();
+        for (User u : allUsers) {
+            if (u.getUserId().equals(this.currentStudent.getUserId()) && u instanceof Student) {
+                this.currentStudent = (Student) u;
+                return this.currentStudent;
+            }
+        }
+        return this.currentStudent;
+    }
     private void initializeNavBar() {
 
         JPanel navBar = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
@@ -72,7 +86,8 @@ public class StudentDashboard extends JPanel implements ActionListener {
         contentLayout.show(contentPanel, "Home");
     }
     public void showLessonViewer(Student student, Course course) {
-        lessonViewerPanel.loadCourse(student, course);
+        Student freshStudent = getFreshStudentData();
+        lessonViewerPanel.loadCourse(freshStudent, course);
         contentLayout.show(contentPanel, "LessonViewer");
     }
 
@@ -81,6 +96,7 @@ public class StudentDashboard extends JPanel implements ActionListener {
 
     }
     public void refreshEnrolledPanel() {
+        this.currentStudent = getFreshStudentData();
         enrolledCoursesPanel.refreshCourseList();
     }
     private JButton createNavBtn(String text) {

@@ -41,11 +41,27 @@
         "lessonId": "L2",
         "title": "CSS Styling",
         "content": "This is the content for L2.",
-        "resources": []
+        "resources": [],
+        "quiz": {
+          "questions": [
+            {
+              "id": "Q3",
+              "question": "Which property is used for changing the background color?",
+              "answers": [
+                "bgcolor",
+                "background-color"
+              ],
+              "correctAnswer": 1
+            }
+          ],
+          "passScore": 60,
+          "maxAttempts": 3
+        }
       }
     ],
     "students": [
-      "U2001"
+      "U2001",
+      "U2002"
     ]
   },
   {
@@ -147,7 +163,22 @@
         "lessonId": "L2",
         "title": "lec 2",
         "content": "",
-        "resources": []
+        "resources": [],
+        "quiz": {
+          "questions": [
+            {
+              "id": "Q2",
+              "question": "A set is a collection of well-defined, distinct objects.",
+              "answers": [
+                "True",
+                "False"
+              ],
+              "correctAnswer": 0
+            }
+          ],
+          "passScore": 70,
+          "maxAttempts": 3
+        }
       }
     ],
     "students": [

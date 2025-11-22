@@ -9,7 +9,7 @@ import model.User;
 
 public class InstructorDashboard extends JPanel implements ActionListener {
 
-    private JButton editCoursesButton, viewEnrolledStudentsButton, manageLessonsButton, logoutButton;
+    private JButton editCoursesButton, viewEnrolledStudentsButton, manageLessonsButton, logoutButton,insightsButton;
     private CardLayout contentLayout;
     private JPanel contentPanel;
 
@@ -48,13 +48,15 @@ public class InstructorDashboard extends JPanel implements ActionListener {
         viewEnrolledStudentsButton = createNavBtn("View Enrolled Students");
         manageLessonsButton = createNavBtn("Manage Lessons");
         logoutButton = createNavBtn("Logout");
+        insightsButton = createNavBtn("Insights");
 
         navBar.add(editCoursesButton);
         navBar.add(viewEnrolledStudentsButton);
         navBar.add(manageLessonsButton);
+        navBar.add(insightsButton);
         navBar.add(logoutButton);
 
-        JButton[] buttons = { editCoursesButton, viewEnrolledStudentsButton, manageLessonsButton, logoutButton };
+        JButton[] buttons = { editCoursesButton, viewEnrolledStudentsButton, manageLessonsButton, logoutButton, insightsButton };
         for (JButton btn : buttons) {
             btn.addActionListener(this);
         }
@@ -94,6 +96,8 @@ public class InstructorDashboard extends JPanel implements ActionListener {
         } else if (source == manageLessonsButton) {
             manageLessonsPanel.refreshCourses();
             contentLayout.show(contentPanel, "ManageLessons");
+        } else if (source == insightsButton) {
+            openInsightsWindow();
         } else if (source == logoutButton) {
 
         if (logoutListener != null) {
@@ -110,10 +114,14 @@ public class InstructorDashboard extends JPanel implements ActionListener {
             frame.repaint();
         }
     }
-
+    }
+    private void openInsightsWindow() {
+        String courseId=JOptionPane.showInputDialog(this, "Enter Course ID to view Insights:","View Insights",JOptionPane.PLAIN_MESSAGE);
+        if (courseId != null && !courseId.trim().isEmpty()) {
+            new InstructorInsightsFrame(courseId);
+        }
     }
     public void setLogoutAction(ActionListener listener) {
         this.logoutListener = listener;
     }
-
 }

@@ -45,9 +45,32 @@ public class JsonDatabaseManager{
         }
         return users;
     }
+    public List<Student> loadAllStudents(){
+        List<Student>students=new ArrayList<>();
+        for (User user:loadUsers()){
+            if (user instanceof Student student){
+                students.add(student);
+            }
+        } return students;
+    }
 
-    
-
+    public List<String> getEnrolledStudentIds(String courseId) {
+        JsonArray coursesArray = loadCourses();
+        for (JsonElement element : coursesArray) {
+            JsonObject courseObj = element.getAsJsonObject();
+            if (courseObj.get("courseId").getAsString().equals(courseId)) {
+                if (courseObj.has("students") && courseObj.get("students").isJsonArray()) {
+                    JsonArray studentsArray = courseObj.getAsJsonArray("students");
+                    List<String> enrolledIds = new ArrayList<>();
+                    for (JsonElement studentElement : studentsArray) {
+                        enrolledIds.add(studentElement.getAsString());
+                    }
+                    return enrolledIds;
+                }
+            }
+        }
+        return Collections.emptyList();
+    }
     public void saveUsers(List<User>users){
         try (Writer writer=new FileWriter(USERS_FILE)){
             gson.toJson(users,writer);
