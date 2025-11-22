@@ -94,7 +94,6 @@ public class SignupPanel extends JPanel implements ActionListener {
         if (source == signupButton) {
             handleSignup();
         } else if (source == backToLoginButton) {
-            // Switch back to the LoginPanel
             JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
             parent.getContentPane().removeAll();
             parent.add(new LoginPanel());

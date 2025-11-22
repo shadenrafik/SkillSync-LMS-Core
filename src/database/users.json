@@ -18,10 +18,12 @@
     ],
     "progress": {
       "C1": [
-        "L1"
       ],
-      "C2": []
+      "C2": [],
+      "c5": [
+      ]
     },
+    "quizAttempts": {},
     "userId": "U2001",
     "username": "student1",
     "email": "student@test.com",
@@ -35,6 +37,7 @@
     "progress": {
       "C3": []
     },
+    "quizAttempts": {},
     "userId": "U2002",
     "username": "student2",
     "email": "student2@test.com",
@@ -58,6 +61,7 @@
     "progress": {
       "P101": []
     },
+    "quizAttempts": {},
     "userId": "U1501",
     "username": "mohameds",
     "email": "s@s.com",
@@ -71,6 +75,7 @@
     "progress": {
       "D202": []
     },
+    "quizAttempts": {},
     "userId": "U8918",
     "username": "sara",
     "email": "sararakha@gmail.com",

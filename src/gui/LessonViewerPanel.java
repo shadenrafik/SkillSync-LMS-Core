@@ -1,8 +1,7 @@
 package gui;
 
-import model.Course;
-import model.Lesson;
-import model.Student;
+import model.*;
+import backend.*;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -10,24 +9,34 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.time.Instant;
 
 public class LessonViewerPanel extends JPanel implements ListSelectionListener, ActionListener {
 
     private StudentDashboard parentDashboard;
     private Course currentCourse;
-
     private JList<Lesson> lessonList;
     private DefaultListModel<Lesson> lessonListModel;
+    private CardLayout contentCardLayout;
+    private JPanel contentPanel;
     private JTextArea lessonContentArea;
-    private JButton markCompletedButton;
-    private JButton backButton; // To go back to the enrolled courses
+    private JPanel quizViewPanel;
+    private JButton mainActionButton;
+    private JButton backButton;
     private JLabel progressLabel;
     private Student currentStudent;
+    private CourseManager courseManager;
+    private Map<Question, Integer> currentQuizAnswers;
+    private Quiz currentQuiz;
+    private Lesson currentLesson;
 
     public LessonViewerPanel(StudentDashboard parent) {
         this.parentDashboard = parent;
-
+        this.courseManager = new CourseManager("src/database/courses.json");
         setLayout(new BorderLayout(10, 10));
 
 
@@ -51,11 +60,18 @@ public class LessonViewerPanel extends JPanel implements ListSelectionListener, 
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if (value instanceof Lesson) {
-                    setText(((Lesson) value).getTitle());
+                if (value instanceof Lesson lesson) {
+                    String title = lesson.getTitle();
+                    if (currentStudent != null && currentStudent.hasPassedQuiz(currentCourse.getCourseId(), lesson.getLessonId())) {
+                        title += " (Passed ✔️)";
+                    } else if (currentStudent != null && currentStudent.getProgressForCourse(currentCourse.getCourseId()).contains(lesson.getLessonId())) {
+                        title += " (Completed)";
+                    }
+                    setText(title);
                 }
                 return c;
             }
+
         });
 
         lessonList.addListSelectionListener(this);
@@ -64,18 +80,24 @@ public class LessonViewerPanel extends JPanel implements ListSelectionListener, 
         lessonListScrollPane.setPreferredSize(new Dimension(250, 0));
         add(lessonListScrollPane, BorderLayout.WEST);
 
+        contentCardLayout = new CardLayout();
+        contentPanel = new JPanel(contentCardLayout);
 
         lessonContentArea = new JTextArea("Select a lesson to view its content.");
         lessonContentArea.setEditable(false);
         lessonContentArea.setLineWrap(true);
         lessonContentArea.setWrapStyleWord(true);
         lessonContentArea.setFont(new Font("SansSerif", Font.PLAIN, 16));
-        add(new JScrollPane(lessonContentArea), BorderLayout.CENTER);
+        quizViewPanel = new JPanel();
+        quizViewPanel.setLayout(new BoxLayout(quizViewPanel, BoxLayout.Y_AXIS));
 
+        contentPanel.add(new JScrollPane(lessonContentArea), "LessonContent");
+        contentPanel.add(new JScrollPane(quizViewPanel), "QuizView");
+        add(contentPanel, BorderLayout.CENTER);
 
-        markCompletedButton = new JButton("Mark Selected Lesson as Completed");
-        markCompletedButton.addActionListener(this);
-        add(markCompletedButton, BorderLayout.SOUTH);
+        mainActionButton = new JButton("Action Button");
+        mainActionButton.addActionListener(this);
+        add(mainActionButton, BorderLayout.SOUTH);
     }
 
 
@@ -90,7 +112,9 @@ public class LessonViewerPanel extends JPanel implements ListSelectionListener, 
 
 
         lessonContentArea.setText("Select a lesson to view its content.");
-
+        contentCardLayout.show(contentPanel, "LessonContent");
+        mainActionButton.setText("Select a Lesson");
+        mainActionButton.setEnabled(false);
 
         updateProgress();
     }
@@ -99,31 +123,177 @@ public class LessonViewerPanel extends JPanel implements ListSelectionListener, 
     public void valueChanged(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting()) {
             Lesson selectedLesson = lessonList.getSelectedValue();
+            currentLesson = selectedLesson;
+
             if (selectedLesson != null) {
+                int selectedIndex = lessonListModel.indexOf(selectedLesson);
+                if (selectedIndex > 0) {
+                    Lesson previousLesson = lessonListModel.getElementAt(selectedIndex - 1);
+                    String prevLessonId = previousLesson.getLessonId();
+
+                    if (!currentStudent.getProgressForCourse(currentCourse.getCourseId()).contains(prevLessonId)) {
+                        JOptionPane.showMessageDialog(this, "You must complete the previous lesson: '" + previousLesson.getTitle() + "' before accessing this lesson.", "Lesson Blocked", JOptionPane.WARNING_MESSAGE);
+                        lessonList.clearSelection();
+                        return;
+                    }
+                }
+
+                contentCardLayout.show(contentPanel, "LessonContent");
                 lessonContentArea.setText(selectedLesson.getContent());
+
+                Quiz quiz = selectedLesson.getQuiz();
+                if (quiz != null) {
+                    if (currentStudent.hasPassedQuiz(currentCourse.getCourseId(), selectedLesson.getLessonId())) {
+                        mainActionButton.setText("Quiz Passed!");
+                        mainActionButton.setEnabled(false);
+                    } else {
+                        mainActionButton.setText("Start Quiz for " + quiz.getPassScore() + "%");
+                        mainActionButton.setActionCommand("StartQuiz");
+                        mainActionButton.setEnabled(true);
+                    }
+                } else {
+                    mainActionButton.setText("Mark Lesson as Completed");
+                    mainActionButton.setActionCommand("MarkCompleted");
+                    mainActionButton.setEnabled(true);
+                }
             } else {
                 lessonContentArea.setText("Select a lesson to view its content.");
+                mainActionButton.setText("Select a Lesson");
+                mainActionButton.setEnabled(false);
             }
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == markCompletedButton) {
-            Lesson selectedLesson = lessonList.getSelectedValue();
-            if (selectedLesson == null) {
-                JOptionPane.showMessageDialog(this, "Please select a lesson to mark as complete.", "No Lesson Selected", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            currentStudent.markLessonCompleted(currentCourse.getCourseId(), selectedLesson.getLessonId());
-            updateProgress();
-            JOptionPane.showMessageDialog(this, "Lesson '" + selectedLesson.getTitle() + "' marked as complete!");
-
-        } else if (e.getSource() == backButton) {
-            // Tell the parent dashboard to go back
+        String command = e.getActionCommand();
+        if (e.getSource() == backButton) {
             parentDashboard.showPanel("ViewEnrolledCourses");
+
+        } else if (currentLesson == null) {
+            JOptionPane.showMessageDialog(this, "Please select a lesson first.", "No Lesson Selected", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        switch (command) {
+            case "MarkCompleted":
+                currentStudent.markLessonCompleted(currentCourse.getCourseId(), currentLesson.getLessonId());
+                new JsonDatabaseManager().saveUsers(new JsonDatabaseManager().loadUsers());
+                JOptionPane.showMessageDialog(this, "'" + currentLesson.getTitle() + "' marked as completed!", "Lesson Complete", JOptionPane.INFORMATION_MESSAGE);
+                updateProgress();
+                lessonList.repaint();
+                mainActionButton.setText("Completed");
+                mainActionButton.setEnabled(false);
+                break;
+            case "StartQuiz":
+                currentQuiz = currentLesson.getQuiz();
+                if (currentQuiz == null || currentQuiz.getQuestions().isEmpty()) return;
+
+                loadQuizView(currentQuiz);
+                contentCardLayout.show(contentPanel, "QuizView");
+                mainActionButton.setText("Submit Quiz");
+                mainActionButton.setActionCommand("SubmitQuiz");
+                break;
+
+            case "SubmitQuiz":
+                processQuizSubmission(currentLesson, currentQuiz);
+
+                contentCardLayout.show(contentPanel, "LessonContent");
+
+                updateProgress();
+                lessonList.repaint();
+                break;
         }
     }
+
+    private void loadQuizView(Quiz quiz) {
+        quizViewPanel.removeAll();
+        currentQuizAnswers = new HashMap<>();
+
+        Map<String, ButtonGroup> buttonGroups = new HashMap<>();
+
+        for (Question q : quiz.getQuestions()) {
+            JPanel qPanel = new JPanel();
+            qPanel.setLayout(new BoxLayout(qPanel, BoxLayout.Y_AXIS));
+            qPanel.setBorder(BorderFactory.createTitledBorder(q.getQuestion()));
+
+            ButtonGroup group = new ButtonGroup();
+            buttonGroups.put(q.getId(), group);
+
+            for (int i = 0; i < q.getAnswers().size(); i++) {
+                JRadioButton option = new JRadioButton(q.getAnswers().get(i));
+                final int selectedIndex = i;
+                option.addActionListener(e -> {
+                    currentQuizAnswers.put(q, selectedIndex);
+                });
+                group.add(option);
+                qPanel.add(option);
+            }
+            quizViewPanel.add(qPanel);
+        }
+        quizViewPanel.revalidate();
+        quizViewPanel.repaint();
+    }
+
+    private void processQuizSubmission(Lesson lesson, Quiz quiz) {
+        int correctCount = 0;
+        int totalQuestions = quiz.getQuestions().size();
+        StringBuilder feedback = new StringBuilder();
+
+        for (int i = 0; i < totalQuestions; i++) {
+            Question q = quiz.getQuestions().get(i);
+            Integer selectedIndex = currentQuizAnswers.get(q);
+
+            if (selectedIndex != null && selectedIndex.equals(q.getCorrectAnswer())) {
+                correctCount++;
+            } else {
+                String correctText = q.getAnswers().get(q.getCorrectAnswer());
+                feedback.append("\nQuestion ").append(i + 1).append(": Incorrect.");
+                feedback.append("\n\tCorrect Answer: ").append(correctText);
+            }
+        }
+
+        int scorePercentage = (int) ((double) correctCount / totalQuestions * 100);
+        boolean passed = scorePercentage >= quiz.getPassScore();
+
+        StudentQuizAttempt attempt = new StudentQuizAttempt(
+                scorePercentage,
+                passed);
+
+        courseManager.recordLessonQuizResult(
+                currentStudent.getUserId(),
+                currentCourse.getCourseId(),
+                lesson.getLessonId(),
+                attempt
+        );
+
+
+        JsonDatabaseManager db = new JsonDatabaseManager();
+        List<User> allUsers = db.loadUsers();
+        for (User u : allUsers) {
+            if (u.getUserId().equals(currentStudent.getUserId()) && u instanceof Student) {
+                this.currentStudent = (Student) u;
+                break;
+            }
+        }
+        lessonList.repaint();
+        updateProgress();
+
+        String message = "Quiz Submitted!Score: " + correctCount + " / " + totalQuestions + " (" + scorePercentage + "%)\n";
+        message += passed ? "Status: PASSED! (Target: " + quiz.getPassScore() + "%)" : "Status: FAILED. (Target: " + quiz.getPassScore() + "%)";
+        if (!passed && feedback.length() > 0) {
+            message += "\n\n--- Feedback ---" + feedback.toString();
+        }
+
+        JOptionPane.showMessageDialog(this, message, "Quiz Results", passed ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
+
+
+        mainActionButton.setEnabled(passed ? false : true);
+        if (passed) {
+            mainActionButton.setText("Quiz Passed!");
+        }
+    }
+
 
     private void updateProgress() {
         List<String> completed = currentStudent.getProgressForCourse(currentCourse.getCourseId());

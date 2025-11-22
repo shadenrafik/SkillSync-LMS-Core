@@ -93,7 +93,6 @@ public class PendingCoursesPanel extends JPanel {
     private void doReject() {
         Course c = getSelectedCourse();
         if (c == null) return;
-       // String note = JOptionPane.showInputDialog(this, "Optional rejection note (reason):");
         boolean ok = manager.rejectCourse(c.getCourseId());
         if (ok) {
             JOptionPane.showMessageDialog(this, "Course rejected.");

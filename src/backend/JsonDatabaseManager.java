@@ -4,11 +4,7 @@ import com.google.gson.*;
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
-import model.User;
-import model.Admin;
-import model.Course;
-import model.Instructor;
-import model.Student;
+import model.*;
 
 public class JsonDatabaseManager{
 
@@ -109,8 +105,6 @@ public class JsonDatabaseManager{
         }
     }
 
-    // In JsonDatabaseManager.java
-
     public void updateInstructorCourseList(String instructorId, String courseId, String action) {
         List<User> users = loadUsers();
         for (User u : users) {
@@ -125,15 +119,25 @@ public class JsonDatabaseManager{
             }
         }
     }
-
-    // In JsonDatabaseManager.java
-
     public void updateStudentEnrollment(String studentId, String courseId, String action) {
         List<User> users = loadUsers();
         for (User u : users) {
             if (u.getUserId().equals(studentId) && u instanceof Student student) {
                 if ("enroll".equalsIgnoreCase(action)) {
                     student.enrollInCourse(courseId);
+                }
+                saveUsers(users);
+                return;
+            }
+        }
+    }
+    public void updateStudentProgress(String studentId, String courseId, String lessonId, StudentQuizAttempt attempt) {
+        List<User> users = loadUsers();
+        for (User u : users) {
+            if (u.getUserId().equals(studentId) && u instanceof Student student) {
+                student.getQuizAttempts().computeIfAbsent(courseId, k -> new HashMap<>()).put(lessonId, attempt);
+                if (attempt.isPassed()) {
+                    student.markLessonCompleted(courseId, lessonId);
                 }
                 saveUsers(users);
                 return;

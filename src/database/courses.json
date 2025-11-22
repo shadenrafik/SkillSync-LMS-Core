@@ -9,7 +9,33 @@
         "lessonId": "L1",
         "title": "HTML Basicsff",
         "content": "This is the content for L1.",
-        "resources": []
+        "resources": [],
+        "quiz": {
+          "questions": [
+            {
+              "id": "Q1",
+              "question": "What does HTML stand for?",
+              "answers": [
+                "Hyper Text Markup Language",
+                "Hyperlinks and Text Markup Language",
+                "Home Tool Markup Language"
+              ],
+              "correctAnswer": 0
+            },
+            {
+              "id": "Q2",
+              "question": "Which tag is used for the largest heading?",
+              "answers": [
+                "\u003cheading\u003e",
+                "\u003ch1\u003e",
+                "\u003chead\u003e"
+              ],
+              "correctAnswer": 1
+            }
+          ],
+          "passScore": 50,
+          "maxAttempts": 3
+        }
       },
       {
         "lessonId": "L2",
@@ -100,7 +126,22 @@
         "lessonId": "L1",
         "title": "lec 1",
         "content": "",
-        "resources": []
+        "resources": [],
+        "quiz": {
+          "questions": [
+            {
+              "id": "Q1",
+              "question": "Is discrete mathematics primarily about continuous or distinct objects?",
+              "answers": [
+                "Continuous",
+                "Distinct"
+              ],
+              "correctAnswer": 1
+            }
+          ],
+          "passScore": 100,
+          "maxAttempts": 1
+        }
       },
       {
         "lessonId": "L2",
@@ -110,7 +151,8 @@
       }
     ],
     "students": [
-      "U1501"
+      "U1501",
+      "U2001"
     ]
   },
   {

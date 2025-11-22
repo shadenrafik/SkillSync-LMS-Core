@@ -21,7 +21,7 @@ public class LoginPanel extends JPanel implements ActionListener {
 
     public LoginPanel() {
 
-        auth = new AuthManager(); // Use backend
+        auth = new AuthManager();
 
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();

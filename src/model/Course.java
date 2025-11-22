@@ -12,7 +12,7 @@ public class Course {
     private ArrayList<Lesson> lessons;
     private ArrayList<String> students;
 
-    private String status ;  //PENDING, APPROVED, REJECTED
+    private String status ;
 
     public Course() {
         this.lessons = new ArrayList<>();

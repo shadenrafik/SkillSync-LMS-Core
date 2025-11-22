@@ -7,12 +7,18 @@ public class Lesson {
     private String title;
     private String content;
     private ArrayList<String> resources;
-    public Lesson(String lessonId, String title, String content, ArrayList<String> resources) {
+    private Quiz quiz;
+
+    public Lesson(String lessonId, String title, String content, ArrayList<String> resources,Quiz quiz) {
         this.lessonId = lessonId;
         this.title = title;
         this.content = content;
         this.resources = resources;
+        this.quiz = quiz;
 
+    }
+    public Lesson(String lessonId, String title, String content, ArrayList<String> resources) {
+        this(lessonId, title, content, resources, null);
     }
 
     public String getLessonId() {
@@ -41,6 +47,12 @@ public class Lesson {
         this.resources = resources;
     }
 
+    public Quiz getQuiz() {
+        return quiz;
+    }
 
+    public void setQuiz(Quiz quiz) {
+        this.quiz = quiz;
+    }
 }
 

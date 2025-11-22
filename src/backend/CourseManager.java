@@ -57,7 +57,6 @@ public class CourseManager {
             System.out.println("Course already exists.");
         }
     }
-    // In CourseManager.java
 
     public void deleteCourse(String id) {
         Iterator<Course> it =courses.iterator();
@@ -83,6 +82,8 @@ public class CourseManager {
             course.setDescription(newDescription);
             course.setInstructorId(newInstructorId);
             saveAllCourses();
+            jsonDB.updateInstructorCourseList(newInstructorId, courseId, "edit");
+
             System.out.println("Course edited.");
 
         }
@@ -146,7 +147,9 @@ public class CourseManager {
         saveAllCourses();
         System.out.println("Lesson added successfully.");
     }
-
+    public void recordLessonQuizResult(String studentId, String courseId, String lessonId, StudentQuizAttempt attempt) {
+        jsonDB.updateStudentProgress(studentId, courseId, lessonId, attempt);
+    }
     public void deleteLesson(String courseId, String lessonId) {
         Course course = getCourseById(courseId);
         if (course == null) {
