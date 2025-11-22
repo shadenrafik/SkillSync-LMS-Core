@@ -54,10 +54,8 @@ public class StatisticsManager {
     }
 
     public double getCourseCompletionRate(String courseId, int totalLessons) {
-        // 1. Get IDs of students enrolled in this course
         List<String> enrolledIds = db.getEnrolledStudentIds(courseId);
-
-        // 2. Load all student objects and filter to only include enrolled ones
+        
         List<Student> enrolledStudents = db.loadAllStudents().stream()
                 .filter(s -> enrolledIds.contains(s.getUserId()))
                 .collect(java.util.stream.Collectors.toList());
