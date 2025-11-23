@@ -149,7 +149,8 @@
         }
       }
     ],
-    "students": [],
+    "students": [
+    ],
     "status": "APPROVED"
   },
   {

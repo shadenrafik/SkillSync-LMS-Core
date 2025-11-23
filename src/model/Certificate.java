@@ -35,4 +35,11 @@ public class Certificate {
     public void setIssueDate(String issueDate) {
         this.issueDate = issueDate;
     }
+    public String getCertificateContent() {
+        return "Certificate ID: " + certificateId + "\n"
+                + "Course ID: " + courseId + "\n"
+                + "Student ID: " + studentId + "\n"
+                + "Issue Date: " + issueDate + "\n"
+                + "\nCongratulations on completing the course!";
+    }
 }

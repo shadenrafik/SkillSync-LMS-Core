@@ -9,7 +9,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.FileOutputStream;
 import java.util.List;
-
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import java.io.File;
+import java.io.IOException;
 
 
 public class CertificatePanel extends JPanel {
@@ -38,6 +43,28 @@ public class CertificatePanel extends JPanel {
 
 
         refreshButton.addActionListener(e -> loadCertificates());
+        downloadButton.addActionListener(e -> {
+            if (certificateTable.getSelectedRow() != -1) {
+                Certificate cert = student.getCertificates()
+                        .get(certificateTable.getSelectedRow());
+
+
+                String certContent = "Certificate ID: " + cert.getCertificateId() + "\n" +
+                        "Course ID: " + cert.getCourseId() + "\n" +
+                        "Student ID: " + student.getUserId() + "\n" +
+                        "Issue Date: " + cert.getIssueDate() + "\n" +
+                        "\nCongratulations on completing the course!";
+
+
+                String userHome = System.getProperty("user.home");
+                String downloadsPath = userHome + File.separator + "Downloads";
+                String fileName = downloadsPath + File.separator + "Certificate_" + cert.getCourseId() + ".pdf";
+
+                downloadCertificatePDF(certContent, fileName);
+            } else {
+                JOptionPane.showMessageDialog(this, "Select a certificate first.");
+            }
+        });
 
         bottomPanel.add(downloadButton);
         bottomPanel.add(refreshButton);
@@ -72,8 +99,47 @@ public class CertificatePanel extends JPanel {
             );
         }
     }
+    public void downloadCertificatePDF(String certificateContent, String fileName) {
+        PDDocument document = new PDDocument();
+        PDPage page = new PDPage();
+        document.addPage(page);
+
+        try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
+            contentStream.beginText();
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 14);
+            contentStream.setLeading(20f);
+            contentStream.newLineAtOffset(50, 700);
+
+            String[] lines = certificateContent.split("\n");
+            for (String line : lines) {
+                contentStream.showText(line);
+                contentStream.newLine();
+            }
+
+            contentStream.endText();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if (!fileName.toLowerCase().endsWith(".pdf")) {
+                fileName += ".pdf";
+            }
+            document.save(new File(fileName));
+            JOptionPane.showMessageDialog(this, "Certificate saved to: " + fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                document.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void reloadCertificates() {
-        loadCertificates(); // call the private method internally
+        loadCertificates();
     }
 
 

@@ -23,10 +23,8 @@ public class CompletionManager {
 
         if (lesson == null) return false;
 
-        // If lesson has a quiz and not passed, cannot mark complete
         if (lesson.getQuiz() != null && !quizPassed) return false;
 
-        // Mark lesson completed
         if (!student.getProgressForCourse(course.getCourseId()).contains(lessonId)) {
             student.markLessonCompleted(course.getCourseId(), lessonId);
             saveStudent(student);
