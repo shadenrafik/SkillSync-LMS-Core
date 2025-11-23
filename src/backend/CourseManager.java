@@ -144,6 +144,19 @@ public class CourseManager {
         }
 
         lessons.add(newLesson);
+        boolean updated = false;
+        for (int i = 0; i < this.courses.size(); i++) {
+            if (this.courses.get(i).getCourseId().equals(courseId)) {
+                this.courses.set(i, course);
+                updated = true;
+                break;
+            }
+        }
+
+        if (!updated) {
+            this.courses.add(course);
+        }
+
         saveAllCourses();
         System.out.println("Lesson added successfully.");
     }

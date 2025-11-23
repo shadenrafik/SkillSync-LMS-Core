@@ -22,8 +22,9 @@ public class CompletionManager {
 
 
         if (lesson == null) return false;
-
-        if (lesson.getQuiz() != null && !quizPassed) return false;
+        if (lesson.getQuiz() != null && !quizPassed) {
+            return false;
+        }
 
         if (!student.getProgressForCourse(course.getCourseId()).contains(lessonId)) {
             student.markLessonCompleted(course.getCourseId(), lessonId);
@@ -42,6 +43,7 @@ public class CompletionManager {
 
         return false;
     }
+
 
     public boolean isCourseCompleted(Student student, Course course) {
         for (Lesson lesson : course.getLessons()) {

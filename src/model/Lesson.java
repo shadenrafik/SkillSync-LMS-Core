@@ -9,6 +9,9 @@ public class Lesson {
     private ArrayList<String> resources;
     private Quiz quiz;
 
+    public Lesson() {
+        this.resources = new ArrayList<>();
+    }
     public Lesson(String lessonId, String title, String content, ArrayList<String> resources,Quiz quiz) {
         this.lessonId = lessonId;
         this.title = title;

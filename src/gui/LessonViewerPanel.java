@@ -132,54 +132,50 @@ public class LessonViewerPanel extends JPanel implements ListSelectionListener, 
                 mainActionButton.setEnabled(false);
                 return;
             }
-            currentAttemptNumber = 0;if (currentStudent.getQuizAttempts().containsKey(currentCourse.getCourseId())) {
+            int selectedIndex = lessonListModel.indexOf(selectedLesson);
+            if (selectedIndex > 0) {
+                Lesson previousLesson = lessonListModel.getElementAt(selectedIndex - 1);
+                String prevLessonId = previousLesson.getLessonId();
+
+                if (!currentStudent.getProgressForCourse(currentCourse.getCourseId()).contains(prevLessonId)) {
+                    JOptionPane.showMessageDialog(this, "You must complete the previous lesson: '" + previousLesson.getTitle() + "' before accessing this lesson.", "Lesson Blocked", JOptionPane.WARNING_MESSAGE);
+                    lessonList.clearSelection();
+                    return;
+                }
+            }
+
+            contentCardLayout.show(contentPanel, "LessonContent");
+            lessonContentArea.setText(selectedLesson.getContent());
+
+            Quiz quiz = selectedLesson.getQuiz();
+
+            if (quiz == null) {
+                mainActionButton.setText("Error: Quiz Missing");
+                mainActionButton.setEnabled(false);
+                JOptionPane.showMessageDialog(this, "Configuration Error: Lesson is missing a quiz.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            currentAttemptNumber = 0;
+            if (currentStudent.getQuizAttempts().containsKey(currentCourse.getCourseId())) {
                 StudentQuizAttempt lastAttempt = currentStudent.getQuizAttempts().get(currentCourse.getCourseId()).get(selectedLesson.getLessonId());
                 if (lastAttempt != null) {
                     currentAttemptNumber = lastAttempt.getAttemptCount();
-                }}
-            if (selectedLesson != null) {
-                int selectedIndex = lessonListModel.indexOf(selectedLesson);
-                if (selectedIndex > 0) {
-                    Lesson previousLesson = lessonListModel.getElementAt(selectedIndex - 1);
-                    String prevLessonId = previousLesson.getLessonId();
-
-                    if (!currentStudent.getProgressForCourse(currentCourse.getCourseId()).contains(prevLessonId)) {
-                        JOptionPane.showMessageDialog(this, "You must complete the previous lesson: '" + previousLesson.getTitle() + "' before accessing this lesson.", "Lesson Blocked", JOptionPane.WARNING_MESSAGE);
-                        lessonList.clearSelection();
-                        return;
-                    }
                 }
-
-                contentCardLayout.show(contentPanel, "LessonContent");
-                lessonContentArea.setText(selectedLesson.getContent());
-
-                Quiz quiz = selectedLesson.getQuiz();
-                if (quiz != null) {
-                    if (currentStudent.hasPassedQuiz(currentCourse.getCourseId(), selectedLesson.getLessonId())) {
-                        mainActionButton.setText("Quiz Passed!");
-                        mainActionButton.setEnabled(false);
-                    } else if (currentAttemptNumber >= quiz.getMaxAttempts()) {
-                        mainActionButton.setText("Failed - Max Attempts Reached (" + quiz.getMaxAttempts() + ")");
-                        mainActionButton.setEnabled(false);
-                    }else {
-                        int attemptsRemaining = quiz.getMaxAttempts() - currentAttemptNumber;
-                        String attemptsInfo = " (Attempts Remaining: " + attemptsRemaining + " of " + quiz.getMaxAttempts() + ")";
-                        mainActionButton.setText("Start Quiz for " + quiz.getPassScore() + "%");
-                        mainActionButton.setActionCommand("StartQuiz");
-                        mainActionButton.setEnabled(true);
-                    }
-                } else {
-                    mainActionButton.setText("Mark Lesson as Completed");
-                    mainActionButton.setActionCommand("MarkCompleted");
-                    mainActionButton.setEnabled(true);
-                }
-            } else {
-                lessonContentArea.setText("Select a lesson to view its content.");
-                mainActionButton.setText("Select a Lesson");
-                mainActionButton.setEnabled(false);
             }
-        }
-    }
+
+            if (currentStudent.hasPassedQuiz(currentCourse.getCourseId(), selectedLesson.getLessonId())) {
+                mainActionButton.setText("Quiz Passed!");
+                mainActionButton.setEnabled(false);
+            } else if (currentAttemptNumber >= quiz.getMaxAttempts()) {
+                mainActionButton.setText("Failed - Max Attempts Reached (" + quiz.getMaxAttempts() + ")");
+                mainActionButton.setEnabled(false);
+            } else {
+                int attemptsRemaining = quiz.getMaxAttempts() - currentAttemptNumber;
+                mainActionButton.setText("Start Quiz for " + quiz.getPassScore() + "% (Attempts Left: " + attemptsRemaining + ")");
+                mainActionButton.setActionCommand("StartQuiz");
+                mainActionButton.setEnabled(true);
+            }}}
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -193,15 +189,6 @@ public class LessonViewerPanel extends JPanel implements ListSelectionListener, 
         }
 
         switch (command) {
-            case "MarkCompleted":
-                currentStudent.markLessonCompleted(currentCourse.getCourseId(), currentLesson.getLessonId());
-                new JsonDatabaseManager().saveUsers(new JsonDatabaseManager().loadUsers());
-                JOptionPane.showMessageDialog(this, "'" + currentLesson.getTitle() + "' marked as completed!", "Lesson Complete", JOptionPane.INFORMATION_MESSAGE);
-                updateProgress();
-                lessonList.repaint();
-                mainActionButton.setText("Completed");
-                mainActionButton.setEnabled(false);
-                break;
             case "StartQuiz":
                 currentQuiz = currentLesson.getQuiz();
                 if (currentQuiz == null || currentQuiz.getQuestions().isEmpty()) return;

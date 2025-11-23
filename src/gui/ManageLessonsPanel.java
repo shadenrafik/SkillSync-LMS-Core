@@ -107,11 +107,19 @@ public class ManageLessonsPanel extends JPanel {
         JTextField idField = new JTextField();
         JTextField titleField = new JTextField();
         JTextArea contentArea = new JTextArea(5, 20);
+        JTextField passScoreField = new JTextField();
+        JTextField maxAttemptsField = new JTextField();
+        JTextArea quizQuestionsArea = new JTextArea(5, 20);
+        quizQuestionsArea.setToolTipText("Enter questions and answers separated by |.\nFormat: Q: Question text | A: Answer 1 | A: Answer 2 | C: Index of correct answer (0-2)");
 
         Object[] form = {
                 "Lesson ID:", idField,
                 "Title:", titleField,
-                "Content:", new JScrollPane(contentArea)
+                "Content:", new JScrollPane(contentArea),
+                new JLabel("Quiz Creation"),
+                "Pass Score (%):", passScoreField,
+                "Max Attempts:", maxAttemptsField,
+                "Questions (see tooltip for format):", new JScrollPane(quizQuestionsArea)
         };
 
         int result = JOptionPane.showConfirmDialog(this, form, "Add Lesson", JOptionPane.OK_CANCEL_OPTION);
@@ -138,12 +146,85 @@ public class ManageLessonsPanel extends JPanel {
             return;
         }
         if (course.getLessons() == null) course.setLessons(new ArrayList<>());
+        Quiz newQuiz = null;
+        String scoreText = passScoreField.getText().trim();
+        String attemptsText = maxAttemptsField.getText().trim();
 
+        if (quizQuestionsArea.getText().trim().isEmpty() || scoreText.isEmpty() || attemptsText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "All lessons must now have a quiz. Please fill in all Quiz Configuration fields.", "Quiz Required", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-        Lesson newLesson = new Lesson(lid, title, content, new ArrayList<>());        
+        try {
+            int passScore = Integer.parseInt(scoreText);
+            int maxAttempts = Integer.parseInt(attemptsText);
+
+            if (passScore < 1 || passScore > 100) {
+                JOptionPane.showMessageDialog(this, "Pass Score must be between 1 and 100.");
+                return;
+            }
+            if (maxAttempts < 1) {
+                JOptionPane.showMessageDialog(this, "Max Attempts must be 1 or more.");
+                return;
+            }
+
+            List<Question> questions = parseQuizQuestions(quizQuestionsArea.getText().trim());
+
+            if (questions.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Quiz questions input invalid or empty.");
+                return;
+            }
+            newQuiz = new Quiz(questions, passScore, maxAttempts);
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Invalid number format for Pass Score or Max Attempts.");
+            return;
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error parsing quiz questions: " + ex.getMessage());
+            return;
+        }
+
+        Lesson newLesson = new Lesson(lid, title, content, new ArrayList<>(), newQuiz);
 
         manager.addLesson(courseId, newLesson);
         loadLessons();
+    }
+    private List<Question> parseQuizQuestions(String text) {
+        List<Question> questions = new ArrayList<>();
+        String[] qBlocks = text.split("\n\n");
+
+        for (int i = 0; i < qBlocks.length; i++) {
+            String block = qBlocks[i].trim();
+            if (block.isEmpty()) continue;
+
+            String questionText = null;
+            List<String> answers = new ArrayList<>();
+            int correctAnswer = -1;
+
+            String[] parts = block.split("\\|");
+            for (String part : parts) {
+                String trimmed = part.trim();
+                if (trimmed.startsWith("Q:")) {
+                    questionText = trimmed.substring(2).trim();
+                } else if (trimmed.startsWith("A:")) {
+                    answers.add(trimmed.substring(2).trim());
+                } else if (trimmed.startsWith("C:")) {
+                    try {
+                        correctAnswer = Integer.parseInt(trimmed.substring(2).trim());
+                    } catch (NumberFormatException ex) {
+                        throw new IllegalArgumentException("Invalid correct answer index format in block " + (i + 1));
+                    }
+                }
+            }
+
+            if (questionText != null && !answers.isEmpty() && correctAnswer != -1 && correctAnswer < answers.size()) {
+                String generatedId = "Q" + (i + 1);
+                questions.add(new Question(questionText, answers, correctAnswer, generatedId));
+            } else {
+                throw new IllegalArgumentException("Incomplete or invalid question block format for block " + (i + 1) + ". Check Q, A, and C fields.");
+            }
+        }
+        return questions;
     }
 
      private void editLesson() {
@@ -174,8 +255,7 @@ public class ManageLessonsPanel extends JPanel {
 
         int result = JOptionPane.showConfirmDialog(this, form, "Edit Lesson", JOptionPane.OK_CANCEL_OPTION);
         if (result != JOptionPane.OK_OPTION) return;
-
-         String newTitle = titleField.getText().trim();
+        String newTitle = titleField.getText().trim();
          if(Validation.isEmpty(newTitle)) {
              JOptionPane.showMessageDialog(this, "Lesson title cannot be empty");
              return;
