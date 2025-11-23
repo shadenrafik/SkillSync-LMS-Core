@@ -59,6 +59,9 @@ public class AvailableCoursesPanel extends JPanel implements ActionListener {
 
         List<Course> availableCourses = new ArrayList<>();
         for (Course course : allCourses) {
+            if(/*course.getStatus() == null || */!course.getStatus().equals("APPROVED")) {          //to skip non-approved courses
+                continue; // Skip non-approved courses
+            }
             if (!enrolledIds.contains(course.getCourseId())) {
                 availableCourses.add(course);
             }

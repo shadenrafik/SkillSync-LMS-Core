@@ -28,6 +28,16 @@ public class Course {
         this.students = students != null ? students : new ArrayList<>();
     }
 
+    public Course(String courseId, String title, String description, String instructorId, ArrayList<Lesson> lessons, ArrayList<String> students, String status) {
+        this.courseId = courseId;
+        this.title = title;
+        this.description = description;
+        this.instructorId = instructorId;
+        this.lessons = lessons != null ? lessons : new ArrayList<>();
+        this.students = students != null ? students : new ArrayList<>();
+        this.status = status;
+    }
+
     public String getCourseId() {
         return courseId;
     }
@@ -84,6 +94,9 @@ public class Course {
     } 
 
     public void setStatus(String status) {
+        if(status == null)
+            this.status = "PENDING";
+        else
         this.status = status;
     }
 

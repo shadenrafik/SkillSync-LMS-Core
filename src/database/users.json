@@ -77,7 +77,8 @@
       "P101",
       "c5",
       "test",
-      "test2"
+      "test2",
+      "c560"
     ],
     "userId": "U8403",
     "username": "mohamed",
@@ -86,11 +87,68 @@
     "role": "instructor"
   },
   {
-    "enrolledCourses": [],
-    "progress": {},
-    "quizAttempts": {},
-    "completedCourses": [],
-    "certificates": [],
+    "enrolledCourses": [
+      "C4",
+      "c5",
+      "c560",
+      "D202"
+    ],
+    "progress": {
+      "C4": [
+        "L1",
+        "L2"
+      ],
+      "c5": [
+        "L1",
+        "L2"
+      ],
+      "c560": [],
+      "D202": []
+    },
+    "quizAttempts": {
+      "C4": {
+        "L1": {
+          "score": 100.0,
+          "passed": true,
+          "attemptCount": 1
+        },
+        "L2": {
+          "score": 100.0,
+          "passed": true,
+          "attemptCount": 1
+        }
+      },
+      "c5": {
+        "L1": {
+          "score": 100.0,
+          "passed": true,
+          "attemptCount": 1
+        },
+        "L2": {
+          "score": 100.0,
+          "passed": true,
+          "attemptCount": 1
+        }
+      },
+      "c560": {},
+      "D202": {}
+    },
+    "completedCourses": [
+      "C4",
+      "c5"
+    ],
+    "certificates": [
+      {
+        "certificateId": "CERT1763921126817",
+        "courseId": "C4",
+        "issueDate": "2025-11-23"
+      },
+      {
+        "certificateId": "CERT1763921334664",
+        "courseId": "c5",
+        "issueDate": "2025-11-23"
+      }
+    ],
     "userId": "U1501",
     "username": "mohameds",
     "email": "s@s.com",

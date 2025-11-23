@@ -7,7 +7,7 @@ public class Main {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("SkillForge");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(900, 600);
+            frame.setSize(1050, 700);
             frame.setLocationRelativeTo(null);
 
             frame.add(new LoginPanel());  

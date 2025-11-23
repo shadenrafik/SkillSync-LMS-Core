@@ -85,7 +85,7 @@ public class EditCoursesPanel extends JPanel {
 
             ArrayList<Lesson> lessons = new ArrayList<>();
             ArrayList<String> students = new ArrayList<>();
-            Course newC = new Course(cid, t, d, iid, lessons, students);
+            Course newC = new Course(cid, t, d, iid, lessons, students,"PENDING");
 
             cmanager.insertCourse(newC);
             refreshCourses();

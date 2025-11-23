@@ -65,7 +65,7 @@ public class AdminDashboard extends JPanel implements ActionListener {
         contentPanel = new JPanel(contentLayout);
         contentPanel.add(new HomePanel(), "Home");
         contentPanel.add(new PendingCoursesPanel(manager), "PendingCoursesPanel");
-        //contentPanel.add(new ManageCoursesPanel(manager), "ManageCourses");
+        contentPanel.add(new ManageCoursesPanelAdmin(manager), "ManageCourses");
         add(contentPanel, BorderLayout.CENTER);
     }
 

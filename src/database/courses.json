@@ -61,7 +61,8 @@
     ],
     "students": [
       "U2001"
-    ]
+    ],
+    "status": "APPROVED"
   },
   {
     "courseId": "C2",
@@ -116,7 +117,8 @@
     ],
     "students": [
       "U2001"
-    ]
+    ],
+    "status": "APPROVED"
   },
   {
     "courseId": "C3",
@@ -147,7 +149,8 @@
         }
       }
     ],
-    "students": []
+    "students": [],
+    "status": "APPROVED"
   },
   {
     "courseId": "P101",
@@ -178,7 +181,8 @@
         }
       }
     ],
-    "students": []
+    "students": [],
+    "status": "APPROVED"
   },
   {
     "courseId": "D202",
@@ -209,7 +213,10 @@
         }
       }
     ],
-    "students": []
+    "students": [
+      "U1501"
+    ],
+    "status": "APPROVED"
   },
   {
     "courseId": "c5",
@@ -260,7 +267,10 @@
         }
       }
     ],
-    "students": []
+    "students": [
+      "U1501"
+    ],
+    "status": "APPROVED"
   },
   {
     "courseId": "test",
@@ -290,7 +300,8 @@
         }
       }
     ],
-    "students": []
+    "students": [],
+    "status": "APPROVED"
   },
   {
     "courseId": "test2",
@@ -320,7 +331,8 @@
         }
       }
     ],
-    "students": []
+    "students": [],
+    "status": "APPROVED"
   },
   {
     "courseId": "C4",
@@ -373,7 +385,9 @@
         }
       }
     ],
-    "students": [],
+    "students": [
+      "U1501"
+    ],
     "status": "APPROVED"
   },
   {
@@ -483,5 +497,23 @@
     ],
     "students": [],
     "status": "REJECTED"
+  },
+  {
+    "courseId": "c560",
+    "title": "math4",
+    "description": "test 2A",
+    "instructorId": "U8403",
+    "lessons": [
+      {
+        "lessonId": "L250",
+        "title": "lec1",
+        "content": "",
+        "resources": []
+      }
+    ],
+    "students": [
+      "U1501"
+    ],
+    "status": "APPROVED"
   }
 ]
