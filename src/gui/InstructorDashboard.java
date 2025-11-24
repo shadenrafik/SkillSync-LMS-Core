@@ -118,7 +118,7 @@ public class InstructorDashboard extends JPanel implements ActionListener {
     private void openInsightsWindow() {
         String courseId=JOptionPane.showInputDialog(this, "Enter Course ID to view Insights:","View Insights",JOptionPane.PLAIN_MESSAGE);
         if (courseId != null && !courseId.trim().isEmpty()) {
-            new InstructorInsightsFrame(courseId);
+            new InstructorInsightsFrame(courseId.trim(), loggedUser.getUserId());
         }
     }
     public void setLogoutAction(ActionListener listener) {
