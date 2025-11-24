@@ -72,7 +72,6 @@ public class ViewEnrolledStudentsPanel extends JPanel {
 
         if (chosen == null) return;
 
-        // ⭐️ FIX: Use ArrayList<String> to match the Course model's getter
         ArrayList<String> st = chosen.getStudents();
         if (st == null || st.isEmpty()) return;
 

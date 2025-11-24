@@ -214,27 +214,47 @@ public class LessonViewerPanel extends JPanel implements ListSelectionListener, 
         quizViewPanel.removeAll();
         currentQuizAnswers = new HashMap<>();
 
-        Map<String, ButtonGroup> buttonGroups = new HashMap<>();
+        int preferredWidth = 700;
+        int qNumber = 1; 
 
         for (Question q : quiz.getQuestions()) {
+
             JPanel qPanel = new JPanel();
             qPanel.setLayout(new BoxLayout(qPanel, BoxLayout.Y_AXIS));
-            qPanel.setBorder(BorderFactory.createTitledBorder(q.getQuestion()));
+            qPanel.setBorder(BorderFactory.createTitledBorder("Question " + qNumber));
+            qPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
+            JTextArea questionText = new JTextArea("Q" + qNumber + ": " + q.getQuestion());
+            questionText.setLineWrap(true);
+            questionText.setWrapStyleWord(true);
+            questionText.setEditable(false);
+            questionText.setOpaque(false);
+            questionText.setMaximumSize(new Dimension(preferredWidth, Integer.MAX_VALUE));
+
+            qPanel.add(questionText);
+
+            // Answers
             ButtonGroup group = new ButtonGroup();
-            buttonGroups.put(q.getId(), group);
-
             for (int i = 0; i < q.getAnswers().size(); i++) {
-                JRadioButton option = new JRadioButton(q.getAnswers().get(i));
-                final int selectedIndex = i;
-                option.addActionListener(e -> {
-                    currentQuizAnswers.put(q, selectedIndex);
-                });
+
+                String answer = q.getAnswers().get(i);
+                JRadioButton option = new JRadioButton(answer);
+                option.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+                final int index = i;
+                option.addActionListener(e -> currentQuizAnswers.put(q, index));
+
+                option.setMaximumSize(new Dimension(preferredWidth, option.getPreferredSize().height * 2));
                 group.add(option);
                 qPanel.add(option);
             }
+
             quizViewPanel.add(qPanel);
+            quizViewPanel.add(Box.createVerticalStrut(10));
+
+            qNumber++; 
         }
+
         quizViewPanel.revalidate();
         quizViewPanel.repaint();
     }

@@ -78,7 +78,8 @@
       "c5",
       "test",
       "test2",
-      "c560"
+      "c560",
+      "c24"
     ],
     "userId": "U8403",
     "username": "mohamed",
@@ -91,7 +92,9 @@
       "C4",
       "c5",
       "c560",
-      "D202"
+      "D202",
+      "U1001",
+      "c24"
     ],
     "progress": {
       "C4": [
@@ -103,7 +106,13 @@
         "L2"
       ],
       "c560": [],
-      "D202": []
+      "D202": [],
+      "U1001": [
+        "L1"
+      ],
+      "c24": [
+        "L1"
+      ]
     },
     "quizAttempts": {
       "C4": {
@@ -131,11 +140,27 @@
         }
       },
       "c560": {},
-      "D202": {}
+      "D202": {},
+      "U1001": {
+        "L1": {
+          "score": 100.0,
+          "passed": true,
+          "attemptCount": 1
+        }
+      },
+      "c24": {
+        "L1": {
+          "score": 50.0,
+          "passed": true,
+          "attemptCount": 1
+        }
+      }
     },
     "completedCourses": [
       "C4",
-      "c5"
+      "c5",
+      "U1001",
+      "c24"
     ],
     "certificates": [
       {
@@ -147,6 +172,16 @@
         "certificateId": "CERT1763921334664",
         "courseId": "c5",
         "issueDate": "2025-11-23"
+      },
+      {
+        "certificateId": "CERT1763951578016",
+        "courseId": "U1001",
+        "issueDate": "2025-11-24"
+      },
+      {
+        "certificateId": "CERT1763952144111",
+        "courseId": "c24",
+        "issueDate": "2025-11-24"
       }
     ],
     "userId": "U1501",

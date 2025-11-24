@@ -27,7 +27,7 @@ public class EditCoursesPanel extends JPanel {
         this.loggedUser = loggedUser;
         this.cmanager=cmanager;
         setLayout(new BorderLayout(6,6));
-        model = new DefaultTableModel(new Object[]{"CourseId","Title","InstructorId"}, 0) {
+        model = new DefaultTableModel(new Object[]{"CourseId","Title","InstructorId","Status"}, 0) {
             @Override public boolean isCellEditable(int r,int c){ return false; }
         };
         table = new JTable(model);
@@ -57,7 +57,7 @@ public class EditCoursesPanel extends JPanel {
                 .collect(Collectors.toList());
 
         for (Course c : instructorCourses) {
-            model.addRow(new Object[]{c.getCourseId(), c.getTitle(), c.getInstructorId()});
+            model.addRow(new Object[]{c.getCourseId(), c.getTitle(), c.getInstructorId(),c.getStatus()});
         }
     }
 

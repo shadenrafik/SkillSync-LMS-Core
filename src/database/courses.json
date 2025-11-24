@@ -149,8 +149,7 @@
         }
       }
     ],
-    "students": [
-    ],
+    "students": [],
     "status": "APPROVED"
   },
   {
@@ -510,6 +509,50 @@
         "title": "lec1",
         "content": "",
         "resources": []
+      }
+    ],
+    "students": [
+      "U1501"
+    ],
+    "status": "APPROVED"
+  },
+  {
+    "courseId": "c24",
+    "title": "math",
+    "description": "1",
+    "instructorId": "U8403",
+    "lessons": [
+      {
+        "lessonId": "L1",
+        "title": "lec1",
+        "content": "test",
+        "resources": [],
+        "quiz": {
+          "questions": [
+            {
+              "id": "Q1",
+              "question": "What is the output of System.out.println(1+2)?",
+              "answers": [
+                "\"1+2\"",
+                "3",
+                "12"
+              ],
+              "correctAnswer": 1
+            },
+            {
+              "id": "Q2",
+              "question": "Which keyword declares a class in Java?",
+              "answers": [
+                "function",
+                "class",
+                "var"
+              ],
+              "correctAnswer": 1
+            }
+          ],
+          "passScore": 40,
+          "maxAttempts": 3
+        }
       }
     ],
     "students": [
