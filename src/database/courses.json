@@ -559,5 +559,14 @@
       "U1501"
     ],
     "status": "APPROVED"
+  },
+  {
+    "courseId": "test pendding",
+    "title": "test",
+    "description": "1",
+    "instructorId": "U8403",
+    "lessons": [],
+    "students": [],
+    "status": "REJECTED"
   }
 ]
